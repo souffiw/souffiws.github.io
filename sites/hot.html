@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Heads or Tails</title>
+    <style>
+        body {
+          background-color: #212121;
+          margin:0;
+          padding: 0;
+        }
+        .header {
+          position: absolute;
+          top: 10%;
+          left: 0;
+          right: 0;
+          text-align: center;
+        }
+        .title {
+          text-align: center;
+          font-family: "Roboto Mono";
+          font-weight: normal;
+          text-transform:uppercase;
+          font-size: 9pt;
+          color: #acacac;
+          padding-bottom: 25px;
+        }
+        .title strong {
+          font-weight: 900;
+        }
+        .result::before {
+          content: "";
+        }
+        .result {
+          font-family: "Roboto Mono";
+          color: #acacac;
+          font-size: 6.5vh;
+          position:absolute;
+          top: 32%;
+          text-align: center;
+          border: 2px solid #acacac;
+          width: 35vh;
+          height: 35vh;
+          border-radius: 50%;
+          line-height: 33vh;
+          margin-left: auto;
+          margin-right: auto;
+          left: 0;
+          right: 0;
+          cursor: default;
+          background-size: 35vh 35vh;
+          user-select: none;
+
+        }
+        #gen {
+          position: absolute;
+          top: 80%;
+          background-color: #acacac;
+          text-align: center;
+          font-size: 9pt;
+          padding: 10px 10px;
+          user-select: none;
+          cursor: pointer;
+          font-family: "Roboto Mono";
+          left: 0;
+          right: 0;
+          width: 205px;
+          margin-left: auto;
+          margin-right: auto;
+          transition: .1s ease-in;
+          font-weight: 800;
+          border: none;
+          border-left: 15px solid #212121;
+          border-right: 15px solid #212121;
+          color: #212121;
+        }
+        #gen:active {
+          background-color: #888;
+        }
+        #gen:focus {
+          outline:none;
+        }
+        hr {
+          width: 28%;
+          position: absolute;
+          top: 80%;
+          left: 0;
+          right: 0;
+          height: 8.5px;
+          border: none;
+          border-bottom: 1px solid #acacac;
+        }
+        .counter {
+          width: 28%;
+          margin: auto;
+          display: flex;
+          font-family: "Roboto Mono";
+          font-size: 8pt;
+          color: #acacac;
+          vertical-align: bottom;
+          margin-bottom: -1px;
+		  font-weight:bold;
+        }
+        #headsCounter {
+          width: 50%;
+          height: 25px;
+          border-right: 1px solid #acacac;  
+        }
+        #tailsCounter {
+          width: 50%;
+          height: 25px;
+        }
+    </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1 class="title">
+        <strong>Heads</strong> or <strong>Tails</strong>
+    </h1>
+    <hr/>
+    <div class="counter">
+        <div id="headsCounter">0</div>
+        <div id="tailsCounter">0</div>
+      </div>
+  </div>
+
+  <div class="result">...</div>
+  <hr>
+  <button id="gen">heads or tails?</button>
+
+<script>
+    document.getElementById("gen").onclick = function() {generate()}
+    var heads = 0;
+    var tails = 0;
+    async function generate() {
+        var rng = Math.floor(Math.random() * 2) + 1;
+        $(".result").fadeTo( 250, 0 );
+        await new Promise(r => setTimeout(r, 250));
+        switch (rng) {
+            case 1: $(".result").text("heads"); heads = heads + 1; break; 
+            case 2: $(".result").text("tails"); tails = tails + 1; break;
+            default: $(".result").text("no"); break;
+        }
+    $(".result").fadeTo(250, 1 );
+    $("#headsCounter").text(heads);
+    $("#tailsCounter").text(tails);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>live editor</title>
+	</head>
+		<style>
+		body { 
+			padding:0;
+			height:100%;
+			overflow:hidden;
+		}
+		.main {
+			margin:auto;
+			width:99.8%;
+			height:98%;
+			display:flex;
+			border:1px solid black;
+			outline: none;
+		}
+		#editor {
+			width:50%;
+			height:99.85%;
+			resize:horizontal;
+			border:none;
+			border-right: 1px solid black;
+			padding: 5px;
+			outline: none;
+			font-family:'MS Gothic', 'Verdana', 'monospace';
+		}
+		#viewer {
+			background: white;
+			width:100%;
+			height:100%;
+			border:none;
+			outline: none;
+		}
+	</style>
+	<body>
+		<div class="main">
+			<textarea id="editor" onkeyup="refresh()" wrap="off">
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HTML, CSS and JavaScript demo</title>
+	</head>
+
+	<body>
+		<p>干净整洁。</p>
+	</body>
+	
+	<style>
+	body {
+		font-family: "Tahoma";
+		font-size:8pt; 
+	}
+	</style>
+</html>
+			</textarea>
+			<iframe id="viewer"></iframe>
+		</div>
+	</body>
+	<script>
+	function refresh(){
+		var textContent = document.getElementById('editor').value;
+		document.getElementById('viewer').srcdoc = textContent;
+	}
+	
+	var textareas = document.getElementsByTagName('textarea');
+	var count = textareas.length;
+	for(var i=0;i<count;i++){
+		textareas[i].onkeydown = function(e){
+			if(e.keyCode==9 || e.which==9){
+				e.preventDefault();
+				var s = this.selectionStart;
+				this.value = this.value.substring(0,this.selectionStart) + "\t" + this.value.substring(this.selectionEnd);
+				this.selectionEnd = s+1; 
+			}
+		}
+	}
+	</script>
+</html>
